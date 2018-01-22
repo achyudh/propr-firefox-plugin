@@ -1,0 +1,15 @@
+{
+
+  "manifest_version": 2,
+  "name": "Propr",
+  "version": "0.1",
+
+  "content_scripts": [
+    {
+      "matches": ["https://bugzilla.mozilla.org/page.cgi?id=splinter.html&*"],
+      "js": ["feedback.js"],
+      "css": ["css/rating.css"]
+    }
+  ]
+
+}
