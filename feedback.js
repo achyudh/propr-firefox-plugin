@@ -49,75 +49,72 @@ function sendToDB(star_count) {
     }));
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+var hr1 = document.createElement('hr');
+main_inner_body.appendChild(hr1);
 
-    var hr1 = document.createElement('hr');
-    main_inner_body.appendChild(hr1);
+var rating_fieldset = document.createElement('fieldset');
+rating_fieldset.innerHTML = "<span class=\"star-cb-group\">\n" +
+    "                  <input type=\"radio\" id=\"rating3-5\" name=\"rating3\" value=\"5\" /><label for=\"rating3-5\">5</label>\n" +
+    "                  <input type=\"radio\" id=\"rating3-4\" name=\"rating3\" value=\"4\" /><label for=\"rating3-4\">4</label>\n" +
+    "                  <input type=\"radio\" id=\"rating3-3\" name=\"rating3\" value=\"3\" /><label for=\"rating3-3\">3</label>\n" +
+    "                  <input type=\"radio\" id=\"rating3-2\" name=\"rating3\" value=\"2\" /><label for=\"rating3-2\">2</label>\n" +
+    "                  <input type=\"radio\" id=\"rating3-1\" name=\"rating3\" value=\"1\" /><label for=\"rating3-1\">1</label>\n" +
+    "                  <input type=\"radio\" id=\"rating3-0\" name=\"rating3\" value=\"0\" class=\"star-cb-clear\" /><label for=\"rating3-0\">0</label>\n" +
+    "                </span>\n";
+main_inner_body.appendChild(rating_fieldset);
 
-    var rating_fieldset = document.createElement('fieldset');
-    rating_fieldset.innerHTML = "<span class=\"star-cb-group\">\n" +
-        "                  <input type=\"radio\" id=\"rating3-5\" name=\"rating3\" value=\"5\" /><label for=\"rating3-5\">5</label>\n" +
-        "                  <input type=\"radio\" id=\"rating3-4\" name=\"rating3\" value=\"4\" /><label for=\"rating3-4\">4</label>\n" +
-        "                  <input type=\"radio\" id=\"rating3-3\" name=\"rating3\" value=\"3\" /><label for=\"rating3-3\">3</label>\n" +
-        "                  <input type=\"radio\" id=\"rating3-2\" name=\"rating3\" value=\"2\" /><label for=\"rating3-2\">2</label>\n" +
-        "                  <input type=\"radio\" id=\"rating3-1\" name=\"rating3\" value=\"1\" /><label for=\"rating3-1\">1</label>\n" +
-        "                  <input type=\"radio\" id=\"rating3-0\" name=\"rating3\" value=\"0\" class=\"star-cb-clear\" /><label for=\"rating3-0\">0</label>\n" +
-        "                </span>\n";
-    main_inner_body.appendChild(rating_fieldset);
+var rating_caption = document.createElement('p');
+rating_caption.setAttribute("style", 'text-align: center;');
+rating_caption.innerHTML = '<i>How would you rate the <b>reviewability</b> of this patch?</i>';
+main_inner_body.appendChild(rating_caption);
 
-    rating_caption = document.createElement('p');
-    rating_caption.setAttribute("style", 'text-align: center;');
-    rating_caption.innerHTML = '<i>How would you rate the <b>reviewability</b> of this patch?</i>';
-    main_inner_body.appendChild(rating_caption);
+var time_div = document.createElement('div');
+time_div.innerHTML = "      <form>\n" +
+    "                           <b>How long did you take to review this patch?<b>\n <br>" +
+    "                           <input id=\"review-time\" type=\"number\" placeholder=\"Number of minutes\" min=\"0\" " +
+    "                           onkeypress=\"return event.keyCode != 13;\" style=\"margin-bottom: 0.5em; margin-top: 0.5em;\">\n" +
+    "                       </form>";
+main_inner_body.appendChild(time_div);
 
-    var time_div = document.createElement('div');
-    time_div.innerHTML = "      <form>\n" +
-        "                           <b>How long did you take to review this patch?<b>\n <br>" +
-        "                           <input id=\"review-time\" type=\"number\" placeholder=\"Number of minutes\" min=\"0\" " +
-        "                           onkeypress=\"return event.keyCode != 13;\" style=\"margin-bottom: 0.5em; margin-top: 0.5em;\">\n" +
-        "                       </form>";
-    main_inner_body.appendChild(time_div);
+var positive_caption = document.createElement('b');
+positive_caption.innerHTML = 'What aspects of this patch, if any, contribute to its reviewability?';
+main_inner_body.appendChild(positive_caption);
 
-    positive_caption = document.createElement('b');
-    positive_caption.innerHTML = 'What aspects of this patch, if any, contribute to its reviewability?';
-    main_inner_body.appendChild(positive_caption);
+var positive_text = document.createElement('textarea');
+positive_text.setAttribute("style", "width: 100%; height:5em; margin-bottom: 0.5em; margin-top: 0.5em;");
+positive_text.id = "positive-text";
+main_inner_body.appendChild(positive_text);
 
-    var positive_text = document.createElement('textarea');
-    positive_text.setAttribute("style", "width: 100%; height:5em; margin-bottom: 0.5em; margin-top: 0.5em;");
-    positive_text.id = "positive-text";
-    main_inner_body.appendChild(positive_text);
+var negative_caption = document.createElement('b');
+negative_caption.innerHTML = 'What aspects of this patch, if any, should be improved to enhance its reviewability?';
+main_inner_body.appendChild(negative_caption);
 
-    negative_caption = document.createElement('b');
-    negative_caption.innerHTML = 'What aspects of this patch, if any, should be improved to enhance its reviewability?';
-    main_inner_body.appendChild(negative_caption);
+var negative_text = document.createElement('textarea');
+negative_text.setAttribute("style", "width: 100%; height:5em; margin-bottom: 0.5em; margin-top: 0.5em;");
+negative_text.id = "negative-text";
+main_inner_body.appendChild(negative_text);
 
-    var negative_text = document.createElement('textarea');
-    negative_text.setAttribute("style", "width: 100%; height:5em; margin-bottom: 0.5em; margin-top: 0.5em;");
-    negative_text.id = "negative-text";
-    main_inner_body.appendChild(negative_text);
+var hr2 = document.createElement('hr');
+main_inner_body.appendChild(hr2);
 
-    var hr2 = document.createElement('hr');
-    main_inner_body.appendChild(hr2);
+var submit_button = document.createElement("button");
+submit_button.id = "submit-button";
+submit_button.setAttribute("style", "float: right;");
+submit_button.innerHTML = "Submit feedback";
+main_inner_body.appendChild(submit_button);
 
-    var submit_button = document.createElement("button");
-    submit_button.id = "submit-button";
-    submit_button.setAttribute("style", "float: right;");
-    submit_button.innerHTML = "Submit feedback";
-    main_inner_body.appendChild(submit_button);
+var star_count = 0;
+$('[name*="rating3"]').change(function () {
+    var me = $(this);
+    star_count = me.attr('value');
+});
 
-    var necessity = 0;
-    $('[name*="rating3"]').change(function () {
-        var me = $(this);
-        necessity = me.attr('value');
-    });
-    document.getElementById('submit-button').addEventListener('click', function () {
-        var review_time_text = document.getElementById('review-time').value;
-        if (isInt(review_time_text, 10) || review_time_text === "") {
-            buttonAnimation();
-            sendToDB(star_count, star_count_nodis, necessity, pr_id, repo_id, pr_num, url, return_url, is_private_repo, installation_id, state);
-        }
-        else
-            alert("Please enter a number (in minutes) for review time.")
-    });
-}, {once: true});
-
+document.getElementById('submit-button').addEventListener('click', function () {
+    var review_time_text = document.getElementById('review-time').value;
+    if (isInt(review_time_text, 10) || review_time_text === "") {
+        buttonAnimation();
+        sendToDB(star_count);
+    }
+    else
+        alert("Please enter a number (in minutes) for review time.")
+});
