@@ -85,9 +85,6 @@ main_inner_body.appendChild(submit_button);
 var url = window.location.href;
 var attachment_id = getQueryVariable("attachment");
 var bug_id = getQueryVariable("bug");
-positive_text = positive_text.value;
-negative_text = negative_text.value;
-var review_time = document.getElementById('review-time').value;
 
 var br = document.createElement('br');
 main_inner_body.appendChild(br);
@@ -119,13 +116,8 @@ document.getElementById('rating3-5').addEventListener('click', function () {
 });
 
 submit_button.addEventListener('click', function () {
-    var review_time_text = document.getElementById('review-time').value;
-    if (isInt(review_time_text, 10) || review_time_text === "") {
         buttonAnimation();
         notifyBackgroundPage();
-    }
-    else
-        alert("Please enter a number (in minutes) for review time.")
 });
 
 function handleError(error) {
@@ -133,6 +125,9 @@ function handleError(error) {
 }
 
 function notifyBackgroundPage() {
+    positive_text = document.getElementById('positive-text').value;
+    negative_text = document.getElementById('negative-text').value;
+    var review_time = document.getElementById('review-time').value;
     var sending = browser.runtime.sendMessage({
         url: url,
         attachment_id: attachment_id,
