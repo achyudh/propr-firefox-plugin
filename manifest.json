@@ -4,9 +4,13 @@
   "name": "Propr",
   "version": "0.1",
 
+  "background": {
+    "scripts": ["js/background.js"]
+  },
+
   "content_scripts": [
     {
-      "matches": ["https://bugzilla.mozilla.org/page.cgi?id=splinter.html&*"],
+      "matches": ["https://bugzilla.mozilla.org/page.cgi?id=splinter.html&*", "https://reviewboard.mozilla.org/r/*"],
       "js": ["feedback.js"],
       "css": ["css/rating.css"]
     }

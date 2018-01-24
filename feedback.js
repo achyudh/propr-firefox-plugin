@@ -1,4 +1,6 @@
 var main_inner_body = document.getElementById('main-inner');
+if (main_inner_body === null)
+    main_inner_body = document.getElementById('content');
 
 function isInt(value) {
     return !isNaN(value) &&
@@ -19,34 +21,11 @@ function getQueryVariable(variable)
 }
 
 function buttonAnimation() {
-    document.getElementById("submit-button").style.background="#4d85d1";
     document.getElementById("submit-button").textContent="Thank you!";
 }
 
-function sendToDB(star_count) {
-    var url = window.location.href;
-    var attachment_id = getQueryVariable("attachment");
-    var bug_id = getQueryVariable("bug");
-    var positive_text = document.getElementById('positive-text').value;
-    var negative_text = document.getElementById('negative-text').value;
-    var review_time = document.getElementById('review-time').value;
-    if (bug_id == null || attachment_id == null) {
-        window.alert('ERROR: Invalid reference to Bugzilla patch!');
-    }
-    // Send feedback DATA as POST request to server
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://chennai.ewi.tudelft.nl:60002/submit", true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify({
-        "action": "bugzilla_feedback",
-        "url": url,
-        "attachment_id":  attachment_id,
-        "bug_id": bug_id,
-        "positive_comments": positive_text,
-        "negative_comments": negative_text,
-        "rating": star_count,
-        "review_time": review_time
-    }));
+function undoButtonAnimation() {
+    document.getElementById("submit-button").textContent="Submit feedback";
 }
 
 var hr1 = document.createElement('hr');
@@ -90,7 +69,7 @@ negative_caption.innerHTML = 'What aspects of this patch, if any, should be impr
 main_inner_body.appendChild(negative_caption);
 
 var negative_text = document.createElement('textarea');
-negative_text.setAttribute("style", "width: 100%; height:5em; margin-bottom: 0.5em; margin-top: 0.5em;");
+negative_text.setAttribute("style", "width: 100%; height:5em; margin-bottom: 0.5em; margin-top: 0.5em; ");
 negative_text.id = "negative-text";
 main_inner_body.appendChild(negative_text);
 
@@ -103,18 +82,65 @@ submit_button.setAttribute("style", "float: right;");
 submit_button.innerHTML = "Submit feedback";
 main_inner_body.appendChild(submit_button);
 
+var url = window.location.href;
+var attachment_id = getQueryVariable("attachment");
+var bug_id = getQueryVariable("bug");
+positive_text = positive_text.value;
+negative_text = negative_text.value;
+var review_time = document.getElementById('review-time').value;
+
+var br = document.createElement('br');
+main_inner_body.appendChild(br);
+
 var star_count = 0;
-$('[name*="rating3"]').change(function () {
-    var me = $(this);
-    star_count = me.attr('value');
+
+document.getElementById('rating3-0').addEventListener('click', function () {
+  star_count = 0;
 });
 
-document.getElementById('submit-button').addEventListener('click', function () {
+document.getElementById('rating3-1').addEventListener('click', function () {
+    star_count = 1;
+});
+
+document.getElementById('rating3-2').addEventListener('click', function () {
+    star_count = 2;
+});
+
+document.getElementById('rating3-3').addEventListener('click', function () {
+    star_count = 3;
+});
+
+document.getElementById('rating3-4').addEventListener('click', function () {
+    star_count = 4;
+});
+
+document.getElementById('rating3-5').addEventListener('click', function () {
+    star_count = 5;
+});
+
+submit_button.addEventListener('click', function () {
     var review_time_text = document.getElementById('review-time').value;
     if (isInt(review_time_text, 10) || review_time_text === "") {
         buttonAnimation();
-        sendToDB(star_count);
+        notifyBackgroundPage();
     }
     else
         alert("Please enter a number (in minutes) for review time.")
 });
+
+function handleError(error) {
+    console.log('Error: ${error}');
+}
+
+function notifyBackgroundPage() {
+    var sending = browser.runtime.sendMessage({
+        url: url,
+        attachment_id: attachment_id,
+        bug_id: bug_id,
+        positive_text: positive_text,
+        negative_text: negative_text,
+        review_time: review_time,
+        star_count: star_count
+    });
+    sending.then(undoButtonAnimation, handleError);
+}
