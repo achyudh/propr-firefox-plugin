@@ -21,11 +21,12 @@ function getQueryVariable(variable)
 }
 
 function buttonAnimation() {
-    document.getElementById("submit-button").textContent="Thank you!";
+    document.getElementById("submit-button").textContent="Submiting...";
+
 }
 
 function undoButtonAnimation() {
-    document.getElementById("submit-button").textContent="Submit feedback";
+    document.getElementById("submit-button").textContent="Thank you!";
 }
 
 var hr1 = document.createElement('hr');
