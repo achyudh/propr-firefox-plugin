@@ -1,6 +1,14 @@
-var main_inner_body = document.getElementById('main-inner');
-if (main_inner_body === null)
+var url = window.location.href;
+var main_inner_body;
+if (url.indexOf('bugzilla') !== -1) {
+    main_inner_body = document.getElementById('main-inner');
+}
+else if (url.indexOf('reviewboard') !== -1) {
     main_inner_body = document.getElementById('content');
+}
+else if (url.indexOf('phabricator') !== -1) {
+    main_inner_body = document.getElementById('phabricator-standard-page-body');
+}
 
 function isInt(value) {
     return !isNaN(value) &&
@@ -83,7 +91,6 @@ submit_button.setAttribute("style", "float: right;");
 submit_button.innerHTML = "Submit feedback";
 main_inner_body.appendChild(submit_button);
 
-var url = window.location.href;
 var attachment_id = getQueryVariable("attachment");
 var bug_id = getQueryVariable("bug");
 
