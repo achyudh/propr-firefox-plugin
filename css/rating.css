@@ -4,6 +4,7 @@
     /* flip the order so we can use the + and ~ combinators */
     unicode-bidi: bidi-override;
     direction: rtl;
+    text-align: initial;
 }
 .star-cb-group * {
     font-size: 40pt;

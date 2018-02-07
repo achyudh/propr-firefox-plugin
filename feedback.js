@@ -9,6 +9,9 @@ else if (url.indexOf('reviewboard') !== -1) {
 else if (url.indexOf('phabricator') !== -1) {
     main_inner_body = document.getElementById('phabricator-standard-page-body');
 }
+else if (url.indexOf('github') !== -1) {
+    main_inner_body = document.getElementById('discussion_bucket');
+}
 
 function isInt(value) {
     return !isNaN(value) &&
@@ -49,6 +52,7 @@ rating_fieldset.innerHTML = "<span class=\"star-cb-group\">\n" +
     "                  <input type=\"radio\" id=\"rating3-1\" name=\"rating3\" value=\"1\" /><label for=\"rating3-1\">1</label>\n" +
     "                  <input type=\"radio\" id=\"rating3-0\" name=\"rating3\" value=\"0\" class=\"star-cb-clear\" /><label for=\"rating3-0\">0</label>\n" +
     "                </span>\n";
+
 main_inner_body.appendChild(rating_fieldset);
 
 var rating_caption = document.createElement('p');
