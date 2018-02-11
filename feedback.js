@@ -1,6 +1,6 @@
 var url = window.location.href;
 var main_inner_body;
-if (url.indexOf('bugzilla') !== -1) {
+if (url.indexOf('bugzilla') !== -1 && !document.body.className.includes('security')) {
     main_inner_body = document.getElementById('main-inner');
 }
 else if (url.indexOf('reviewboard') !== -1) {
