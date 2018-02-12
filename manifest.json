@@ -11,7 +11,7 @@
 
   "content_scripts": [
     {
-      "matches": ["https://bugzilla.mozilla.org/page.cgi?id=splinter.html&*", "https://reviewboard.mozilla.org/r/*", "https://phabricator.services.mozilla.com/D*", "https://github.com/*/pull/*"],
+      "matches": ["https://bugzilla.mozilla.org/page.cgi?id=splinter.html&*", "https://bugzilla.mozilla.org/attachment.cgi?id=*", "https://reviewboard.mozilla.org/r/*", "https://phabricator.services.mozilla.com/D*", "https://github.com/*/pull/*"],
       "js": ["feedback.js"],
       "css": ["css/rating.css"]
     }
