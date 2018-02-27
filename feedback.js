@@ -55,7 +55,8 @@ function notifyBackgroundPage() {
         positive_text: positive_text,
         negative_text: negative_text,
         review_time: review_time,
-        star_count: star_count
+        star_count: star_count,
+        necessity_count: necessity_count
     });
     sending.then(undoButtonAnimation, handleError);
 }
@@ -81,6 +82,23 @@ if (main_inner_body) {
     rating_caption.setAttribute("style", 'text-align: center;');
     rating_caption.innerHTML = '<i>How would you rate the <b>reviewability</b> of this patch?</i>';
     main_inner_body.appendChild(rating_caption);
+
+    var necessity_fieldset = document.createElement('fieldset');
+    necessity_fieldset.innerHTML = "<span class=\"star-cb-group\">\n" +
+        "                  <input type=\"radio\" id=\"rating2-5\" name=\"rating2\" value=\"5\" /><label for=\"rating2-5\">5</label>\n" +
+        "                  <input type=\"radio\" id=\"rating2-4\" name=\"rating2\" value=\"4\" /><label for=\"rating2-4\">4</label>\n" +
+        "                  <input type=\"radio\" id=\"rating2-3\" name=\"rating2\" value=\"3\" /><label for=\"rating2-3\">3</label>\n" +
+        "                  <input type=\"radio\" id=\"rating2-2\" name=\"rating2\" value=\"2\" /><label for=\"rating2-2\">2</label>\n" +
+        "                  <input type=\"radio\" id=\"rating2-1\" name=\"rating2\" value=\"1\" /><label for=\"rating2-1\">1</label>\n" +
+        "                  <input type=\"radio\" id=\"rating2-0\" name=\"rating2\" value=\"0\" class=\"star-cb-clear\" /><label for=\"rating2-0\">0</label>\n" +
+        "                </span>\n";
+
+    main_inner_body.appendChild(necessity_fieldset);
+
+    var necessity_caption = document.createElement('p');
+    necessity_caption.setAttribute("style", 'text-align: center;');
+    necessity_caption.innerHTML = '<i>How would you rate the <b>necessity</b> of this patch?</i>';
+    main_inner_body.appendChild(necessity_caption);
 
     var time_div = document.createElement('div');
     time_div.innerHTML = "      <form>\n" +
@@ -147,6 +165,32 @@ if (main_inner_body) {
 
     document.getElementById('rating3-5').addEventListener('click', function () {
         star_count = 5;
+    });
+
+    var necessity_count = 0;
+
+    document.getElementById('rating2-0').addEventListener('click', function () {
+        necessity_count = 0;
+    });
+
+    document.getElementById('rating2-1').addEventListener('click', function () {
+        necessity_count = 1;
+    });
+
+    document.getElementById('rating2-2').addEventListener('click', function () {
+        necessity_count = 2;
+    });
+
+    document.getElementById('rating2-3').addEventListener('click', function () {
+        necessity_count = 3;
+    });
+
+    document.getElementById('rating2-4').addEventListener('click', function () {
+        necessity_count = 4;
+    });
+
+    document.getElementById('rating2-5').addEventListener('click', function () {
+        necessity_count = 5;
     });
 
     submit_button.addEventListener('click', function () {

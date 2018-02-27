@@ -7,7 +7,7 @@ function getXMLHttp(){
     }
 }
 
-function sendToDB(url, attachment_id, bug_id, positive_text, negative_text, review_time, star_count) {
+function sendToDB(url, attachment_id, bug_id, positive_text, negative_text, review_time, star_count, necessity) {
     if (bug_id == null || attachment_id == null) {
         window.alert('ERROR: Invalid reference to Bugzilla patch!');
     }
@@ -23,7 +23,8 @@ function sendToDB(url, attachment_id, bug_id, positive_text, negative_text, revi
         "positive_comments": positive_text,
         "negative_comments": negative_text,
         "rating": star_count,
-        "review_time": review_time
+        "review_time": review_time,
+        "necessity": necessity
     }));
     console.log(xhr.responseText);
 }
@@ -31,7 +32,7 @@ function sendToDB(url, attachment_id, bug_id, positive_text, negative_text, revi
 function handleMessage(request, sender, sendResponse) {
     console.log("Message from the content script:" + request.url);
     sendToDB(request.url, request.attachment_id, request.bug_id, request.positive_text, request.negative_text,
-        request.review_time, request.star_count);
+        request.review_time, request.star_count, request.necessity_count);
     sendResponse({response: "Data sent to server"});
 }
 
