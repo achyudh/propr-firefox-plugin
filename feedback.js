@@ -41,7 +41,7 @@ function undoButtonAnimation() {
 }
 
 function handleError(error) {
-    console.log('Error: ${error}');
+    console.log(`Error: ${error}`);
 }
 
 function notifyBackgroundPage() {
